@@ -51,6 +51,9 @@ import org.springframework.beans.factory.FactoryBean;
  *
  * @see SqlSessionTemplate
  * @version $Id$
+ * MapperFacrotyBean设置数据源和mybatis配置文件后，通过getObject(..) 获取Mapper的代理类；
+ * 代码如下：return getSqlSession().getMapper(this.mapperInterface);
+
  */
 public class MapperFactoryBean<T> extends SqlSessionDaoSupport implements FactoryBean<T> {
 
