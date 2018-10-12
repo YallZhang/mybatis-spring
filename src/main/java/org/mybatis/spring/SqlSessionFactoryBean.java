@@ -364,6 +364,12 @@ public class SqlSessionFactoryBean implements FactoryBean<SqlSessionFactory>, In
    * @return SqlSessionFactory
    * @throws IOException if loading the config file failed
    */
+  //必看 spring和mybatis 事务的结合点  共用connnction的连接点就是SpringManagedTransactionFactory
+  //mybatis和spring结合时，SqlSession中的SimpleExecutor在执行sql语句时会先从Transaction中拿Connection，
+  //因为所有sql执行时其实都是按隐式执行的。mybatis本身有两种事务：JdbcTransaction和ManagedTransactioin，
+  //ManagedTransaction即意为使用上层容器的Transaction,和spring结合时即为SpringManagedTransaction。
+  //这个SpringManagedTransaction即可用SqlSessionFactory中保持的SpringManagedTransactionFactory来创建。
+  //SqlSession = SqlSessionFactory.openSession();里面会去创建SpringManagedTransaction
   protected SqlSessionFactory buildSqlSessionFactory() throws IOException {
 
     Configuration configuration;
@@ -465,6 +471,8 @@ public class SqlSessionFactoryBean implements FactoryBean<SqlSessionFactory>, In
     }
 
     if (this.transactionFactory == null) {
+      //这个很重要，这里定义了用的transactionFactory为SpringManagedTransactionFactory，这个在获取
+      //connection等地方都有用到，是mybatis跟spring的主要链接
       this.transactionFactory = new SpringManagedTransactionFactory();
     }
 
@@ -477,6 +485,7 @@ public class SqlSessionFactoryBean implements FactoryBean<SqlSessionFactory>, In
         }
 
         try {
+          //这里主要是解析配置的sql mapper配置文件
           XMLMapperBuilder xmlMapperBuilder = new XMLMapperBuilder(mapperLocation.getInputStream(),
               configuration, mapperLocation.toString(), configuration.getSqlFragments());
           xmlMapperBuilder.parse();

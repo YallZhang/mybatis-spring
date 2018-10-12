@@ -1,2 +1,2 @@
-mybatis-spring需要对应的mybatis和spring版本关系
+mybatis-spring闇�瑕佸搴旂殑mybatis鍜宻pring鐗堟湰鍏崇郴
 http://www.mybatis.org/spring/#About

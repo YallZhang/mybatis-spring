@@ -42,6 +42,8 @@ import org.springframework.jdbc.datasource.DataSourceUtils;
  * 
  * @version $Id$
  */
+//spring事务的ConnectionHolder和mybatis事务Connection的关键连接点
+  //主要的类：SqlSessionFactoryBean、SqlSessionFactory、SqlSession
 public class SpringManagedTransaction implements Transaction {
 
   private static final Log LOGGER = LogFactory.getLog(SpringManagedTransaction.class);

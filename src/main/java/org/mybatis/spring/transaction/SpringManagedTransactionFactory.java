@@ -28,33 +28,35 @@ import org.apache.ibatis.transaction.TransactionFactory;
  * Creates a {@code SpringManagedTransaction}.
  *
  * @author Hunter Presnall
- * 
+ *
  * @version $Id$
  */
+//根据dataSource和mybatis-config.xml初始化SqlSessionFactoryBean时 把这个SpringManagedTransactionFactory注册到SqlSessionFactoryBean中
+//然后Mybatis的SqlSession在执行sql时从SpringManagedTransaction通过DataSourceUtils获取ConnectionHolder.Connection。
 public class SpringManagedTransactionFactory implements TransactionFactory {
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public Transaction newTransaction(DataSource dataSource, TransactionIsolationLevel level, boolean autoCommit) {
-    return new SpringManagedTransaction(dataSource);
-  }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Transaction newTransaction(DataSource dataSource, TransactionIsolationLevel level, boolean autoCommit) {
+        return new SpringManagedTransaction(dataSource);
+    }
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public Transaction newTransaction(Connection conn) {
-    throw new UnsupportedOperationException("New Spring transactions require a DataSource");
-  }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Transaction newTransaction(Connection conn) {
+        throw new UnsupportedOperationException("New Spring transactions require a DataSource");
+    }
 
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public void setProperties(Properties props) {
-    // not needed in this version
-  }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setProperties(Properties props) {
+        // not needed in this version
+    }
 
 }

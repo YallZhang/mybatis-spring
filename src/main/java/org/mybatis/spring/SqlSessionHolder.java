@@ -33,6 +33,8 @@ import org.springframework.transaction.support.ResourceHolderSupport;
  * 
  * @version $Id$
  */
+
+//SqlSessionHolder的作用类似于ConnectionHolder，用于在当前线程保持SqlSession
 public final class SqlSessionHolder extends ResourceHolderSupport {
 
   private final SqlSession sqlSession;
@@ -47,9 +49,7 @@ public final class SqlSessionHolder extends ResourceHolderSupport {
    * @param sqlSession the {@code SqlSession} has to be hold.
    * @param executorType the {@code ExecutorType} has to be hold.
    */
-  public SqlSessionHolder(SqlSession sqlSession,
-      ExecutorType executorType,
-      PersistenceExceptionTranslator exceptionTranslator) {
+  public SqlSessionHolder(SqlSession sqlSession, ExecutorType executorType, PersistenceExceptionTranslator exceptionTranslator) {
 
     notNull(sqlSession, "SqlSession must not be null");
     notNull(executorType, "ExecutorType must not be null");
