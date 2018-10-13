@@ -40,6 +40,8 @@ import org.springframework.transaction.support.TransactionSynchronizationManager
  * @author Eduardo Macarron
  *
  * @version $Id$
+ *
+ * 写法类似于DataSourceUtils
  */
 public final class SqlSessionUtils {
 
